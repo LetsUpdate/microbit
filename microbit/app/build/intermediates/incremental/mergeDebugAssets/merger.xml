@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3">
+    <dataSet config="main"
+        ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~">
+        <source path="D:\android studio projects\microbit\app\src\main\assets">
+            <file name="help/bluetooth.png"
+                path="D:\android studio projects\microbit\app\src\main\assets\help\bluetooth.png" />
+            <file name="help/bluetooth_sig.png"
+                path="D:\android studio projects\microbit\app\src\main\assets\help\bluetooth_sig.png" />
+            <file name="help/connected_led.png"
+                path="D:\android studio projects\microbit\app\src\main\assets\help\connected_led.png" />
+            <file name="help/gatt_hierarchy.png"
+                path="D:\android studio projects\microbit\app\src\main\assets\help\gatt_hierarchy.png" />
+            <file name="help/help_style.css"
+                path="D:\android studio projects\microbit\app\src\main\assets\help\help_style.css" />
+            <file name="help/paired.png"
+                path="D:\android studio projects\microbit\app\src\main\assets\help\paired.png" />
+            <file name="help/pairing.png"
+                path="D:\android studio projects\microbit\app\src\main\assets\help\pairing.png" />
+            <file name="help/pairing_passkey.png"
+                path="D:\android studio projects\microbit\app\src\main\assets\help\pairing_passkey.png" />
+            <file name="help/services_and_GATT.png"
+                path="D:\android studio projects\microbit\app\src\main\assets\help\services_and_GATT.png" />
+        </source>
+        <source
+            path="D:\android studio projects\microbit\app\build\intermediates\shader_assets\debug\compileDebugShaders\out" />
+    </dataSet>
+    <dataSet config="debug"
+        ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~">
+        <source path="D:\android studio projects\microbit\app\src\debug\assets" />
+    </dataSet>
+</merger>
