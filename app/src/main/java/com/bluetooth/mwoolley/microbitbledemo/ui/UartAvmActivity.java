@@ -3,6 +3,7 @@ package com.bluetooth.mwoolley.microbitbledemo.ui;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -17,7 +18,9 @@ import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -57,6 +60,7 @@ public class UartAvmActivity extends AppCompatActivity implements ConnectionStat
             bluetooth_le_adapter = null;
         }
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -244,6 +248,8 @@ public class UartAvmActivity extends AppCompatActivity implements ConnectionStat
     SensorManager sensorManager;
     TextView disp1, disp2, sensyDisp;
     SeekBar sensy;
+    Button button;
+    boolean isEnabled = false;
 
     void myOnCreate() {
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -268,6 +274,26 @@ public class UartAvmActivity extends AppCompatActivity implements ConnectionStat
 
             }
         });
+        button = (Button) findViewById(R.id.button);
+        button.setText("Start");
+        button.setBackgroundColor(Color.GREEN);
+        isEnabled = false;
+
+    }
+
+    public void onClick(View v) {
+        if (isEnabled) {
+            button.setText("Start");
+            button.setBackgroundColor(Color.GREEN);
+            isEnabled = false;
+            disp1.setText("0%");
+            disp2.setText("0%");
+            SendText(":00000000:");
+        } else {
+            button.setText("Stop");
+            button.setBackgroundColor(Color.RED);
+            isEnabled = true;
+        }
     }
 
     @Override
@@ -284,6 +310,7 @@ public class UartAvmActivity extends AppCompatActivity implements ConnectionStat
     }
 
     private void motorCalculator(float turn, float forward) {
+        if (!isEnabled) return;
 
         float left = forward;
         float right = forward;
@@ -308,7 +335,9 @@ public class UartAvmActivity extends AppCompatActivity implements ConnectionStat
         try {
             SendText(":" + Kessz + ":");
         } catch (Exception e) {
-            Log.d("cucc", e.getMessage());
+            Log.e("Küldési hiba", e.getMessage());
+            // Toast.makeText(this,"küldési hiba",Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this,"hiba:"+e.getMessage(),Toast.LENGTH_LONG).show();
         }
 
     }
