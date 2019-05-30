@@ -266,12 +266,10 @@ public class UartAvmActivity extends AppCompatActivity implements ConnectionStat
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
             }
         });
         button = (Button) findViewById(R.id.button);
