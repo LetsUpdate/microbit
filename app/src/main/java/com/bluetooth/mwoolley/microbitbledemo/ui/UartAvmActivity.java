@@ -379,6 +379,5 @@ public class UartAvmActivity extends AppCompatActivity implements ConnectionStat
         SendText(":00000000:");
         sensorManager.unregisterListener(this);
     }
-
 }
 //asd
