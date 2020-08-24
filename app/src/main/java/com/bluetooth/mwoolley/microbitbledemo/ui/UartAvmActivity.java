@@ -266,12 +266,10 @@ public class UartAvmActivity extends AppCompatActivity implements ConnectionStat
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
             }
         });
         button = (Button) findViewById(R.id.button);
@@ -298,7 +296,14 @@ public class UartAvmActivity extends AppCompatActivity implements ConnectionStat
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        motorCalculator(Limiter(event.values[0]), Limiter(-event.values[1]));//Y
+        synchronized (this) {
+            if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+                //motorCalculator(Limiter(event.values[0]), Limiter(-event.values[1]));//Y
+            }
+            if (event.sensor.getType() == Sensor.TYPE_ORIENTATION) {
+                iranytu(event.values[0]);
+            }
+        }
     }
 
     private float Limiter(float a) {
@@ -308,6 +313,30 @@ public class UartAvmActivity extends AppCompatActivity implements ConnectionStat
         a = a / max;
         return a;
     }
+
+    private void iranytu(float irany) {
+        int min = 23;
+        if (!isEnabled) return;
+        sensyDisp.setText("" + Math.round(irany));
+        if (irany <= 10 || irany >= 350) {
+            SendText(":00000000:");
+            return;
+        }
+        String make = "";
+        int ertek;
+        if (irany > 10 && irany < 180) {
+            ertek = min + Math.round(irany / 180 * 100);
+            if (ertek > 50) ertek = 50;
+            make = "" + PrepareString("" + (-ertek)) + PrepareString("" + ertek);
+        }
+        if (irany >= 180 && irany < 350) {
+            ertek = min + Math.round((360 / irany - 1) * 100);
+            if (ertek > 50) ertek = 50;
+            make = "" + PrepareString("" + ertek) + PrepareString("" + (-ertek));
+        }
+        SendText(":" + make + ":");
+    }
+
 
     private void motorCalculator(float turn, float forward) {
         if (!isEnabled) return;
@@ -371,6 +400,8 @@ public class UartAvmActivity extends AppCompatActivity implements ConnectionStat
         super.onResume();
         Sensor gyorsulas = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(this, gyorsulas, SensorManager.SENSOR_DELAY_UI);
+        Sensor orientation = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+        sensorManager.registerListener(this, orientation, SensorManager.SENSOR_DELAY_UI);
     }
 
     @Override

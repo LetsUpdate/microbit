@@ -1,4 +1,0 @@
-#Thu Apr 11 18:05:38 CEST 2019
-base.0=D\:\\android studio projects\\microbit\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out
-path.0=classes.dex
-renamed.0=classes.dex
